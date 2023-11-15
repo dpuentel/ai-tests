@@ -13,6 +13,7 @@ interface Detection {
   box: Box
   label: string
   score: number
+  color?: string
 }
 
 export function ObjectDetection() {
@@ -47,9 +48,8 @@ export function ObjectDetection() {
   }
 
   const getBoxElementStyle = (detection: Detection) => {
-    const color = '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, 0)
     return {
-      borderColor: color,
+      borderColor: detection.color,
       left: 100 * detection.box.xmin + '%',
       top: 100 * detection.box.ymin + '%',
       width: 100 * (detection.box.xmax - detection.box.xmin) + '%',
@@ -75,7 +75,7 @@ export function ObjectDetection() {
           detections.map((detection, index) => {
             return (
               <div className='bounding-box' id={index.toString()} style={getBoxElementStyle(detection)}>
-                <span className='bounding-box-label'>
+                <span className='bounding-box-label' style={{backgroundColor: detection.color || 'red'}}>
                   {detection.label}
                 </span>
               </div>
@@ -91,5 +91,13 @@ export function ObjectDetection() {
 const detector = await pipeline('object-detection', 'Xenova/detr-resnet-50')
 
 async function detect (imgSrc: string): Promise<Detection[]> {
-  return await detector(imgSrc, { threshold: 0.5, percentage: true})
+  const detections = await detector(imgSrc, { threshold: 0.5, percentage: true})
+  return detections.map((detection: Detection) => {
+    detection.color = getRandHexColor()
+    return detection
+  })
+}
+
+function getRandHexColor() {
+  return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0')
 }
