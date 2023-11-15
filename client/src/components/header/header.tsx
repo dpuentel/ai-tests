@@ -7,7 +7,7 @@ const pageLinks = [
 ]
 
 export function Header() {
-  const getTextDecoration = (href) => {
+  const getTextDecoration = ({ href }: {href: string}) => {
     if (window.location.pathname === href) {
       return { textDecoration: 'underline' }
     }
@@ -23,7 +23,7 @@ export function Header() {
             <a
               key={href}
               href={href}
-              style={getTextDecoration(href)}
+              style={getTextDecoration({href})}
             >
               {label}
             </a>
