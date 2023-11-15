@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+input[type="submit" i],
+input[type="file" i],
+textarea
+{
+  background-color: #374151;
+  border-radius: 0.25rem;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+}

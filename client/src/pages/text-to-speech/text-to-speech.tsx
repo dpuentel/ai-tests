@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from 'react'
 
-export function TextToSpeech() {
+import './text-to-speech.css'
+
+export default function TextToSpeechPage() {
  const [audio, setAudio] = useState<string>('')
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -28,12 +30,13 @@ export function TextToSpeech() {
 
   return (
     <>
+      <h1>Text to Speech</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Generate audio from this text:
+          <span>Generate audio from this text:</span>
           <textarea name="text" />
         </label>
-        <input type="submit" value="Submit" />
+        <input className='submit' type="submit" value="Submit" />
       </form>
       { audio &&
         <audio controls src={audio} />

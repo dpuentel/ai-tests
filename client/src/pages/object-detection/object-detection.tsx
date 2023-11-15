@@ -16,7 +16,7 @@ interface Detection {
   color?: string
 }
 
-export function ObjectDetection() {
+export default function ObjectDetectionPage() {
   const [image, setImage] = useState<string>('')
   const [detections, setDetections] = useState<Detection[]>([])
 

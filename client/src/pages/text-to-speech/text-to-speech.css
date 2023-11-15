@@ -1,0 +1,10 @@
+form {
+  padding: 1rem;
+}
+
+label {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
