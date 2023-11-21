@@ -25,11 +25,11 @@ export const getCorsAllowedOrigins = () => {
   return envValue.split(',').map((origin) => origin.trim())
 }
 
-export const getServerPort = () => getEnv('PORT', DEFAULT_SERVER_PORT)
+export const getServerPort = () => getEnv('VITE_SERVER_PORT', DEFAULT_SERVER_PORT)
 
 export const getServerUrl = () => {
-  const protocol = getEnv('SERVER_PROTOCOL', DEFAULT_SERVER_PROTOCOL)
-  const host = getEnv('SERVER_HOST', DEFAULT_SERVER_HOST)
+  const protocol = getEnv('VITE_SERVER_PROTOCOL', DEFAULT_SERVER_PROTOCOL)
+  const host = getEnv('VITE_SERVER_HOST', DEFAULT_SERVER_HOST)
   const port = getServerPort()
 
   return `${protocol}://${host}:${port}`

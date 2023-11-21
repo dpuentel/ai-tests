@@ -1,8 +1,8 @@
-import { AI_ROUTE, TEXT_TO_SPEECH_ROUTE } from '../../server/constants.js';
+import { AI_ROUTE, TEXT_TO_SPEECH_ROUTE } from '../../server/constants.js'
 
-
-const getEnv = ({ key, defaultValue }: { key: string, defaultValue?: string}): string => {
+const getEnvKey = ({ key, defaultValue }: { key: string, defaultValue?: string}): string => {
   const value = import.meta.env[key]
+
   if (value === undefined) {
     if (defaultValue === undefined) {
       throw new Error(`Environment variable ${key} is not defined`);
@@ -13,9 +13,9 @@ const getEnv = ({ key, defaultValue }: { key: string, defaultValue?: string}): s
 }
 
 export const getServerUrl = () => {
-  const protocol = getEnv({ key: 'SERVER_PROTOCOL', defaultValue: 'http' });
-  const host = getEnv({ key: 'SERVER_HOST', defaultValue: 'localhost' });
-  const port = getEnv({ key: 'SERVER_PORT', defaultValue: '3000' });
+  const protocol = getEnvKey({ key: 'VITE_SERVER_PROTOCOL' });
+  const host = getEnvKey({ key: 'VITE_SERVER_HOST', });
+  const port = getEnvKey({ key: 'VITE_SERVER_PORT', });
 
   return `${protocol}://${host}:${port}`;
 }

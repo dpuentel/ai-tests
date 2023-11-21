@@ -16,6 +16,7 @@ export default function TextToSpeechPage() {
     }
 
     const textToSpeechUrl = `${getServerUrl()}${getTextToSpeechRoute()}`
+    console.log({ textToSpeechUrl})
 
     const response = await fetch(textToSpeechUrl, {
       method: 'POST',
