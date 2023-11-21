@@ -86,4 +86,4 @@ classifier('We are very happy to show you the 🤗.')
 
 #### Un pequeño ejemplo
 
-[Sencillo, no?](https://slug.vercel.app/s/transformersjs2)
+<a href="https://slug.vercel.app/s/transformersjs2" target="_blank" noopener noreferer>Sencillo, no?</a>
