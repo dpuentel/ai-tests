@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 
 import './text-to-speech.css'
+import { getServerUrl, getTextToSpeechRoute } from '../../enviroment-configs'
 
 export default function TextToSpeechPage() {
  const [audio, setAudio] = useState<string>('')
@@ -14,7 +15,9 @@ export default function TextToSpeechPage() {
       return
     }
 
-    const response = await fetch('http://localhost:3000/ai/text-to-speech/', {
+    const textToSpeechUrl = `${getServerUrl()}${getTextToSpeechRoute()}`
+
+    const response = await fetch(textToSpeechUrl, {
       method: 'POST',
       body: JSON.stringify({ text }),
       headers: {

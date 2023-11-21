@@ -1,11 +1,9 @@
 import cors from 'cors'
+import { getCorsAllowedOrigins } from '../services/enviroment-configs.js'
 
-const ALLOWED_ORIGINS = [
-  'http://localhost:3000',
-  'http://localhost:5173'
-]
+const envAllowedOrigins = getCorsAllowedOrigins()
 
-export const corsMiddleware = ({ allowedOrigins = ALLOWED_ORIGINS } = {}) => cors({
+export const corsMiddleware = ({ allowedOrigins = envAllowedOrigins } = {}) => cors({
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin)) {
       return callback(null, true)
@@ -15,6 +13,6 @@ export const corsMiddleware = ({ allowedOrigins = ALLOWED_ORIGINS } = {}) => cor
       return callback(null, true)
     }
 
-    return callback(new Error('Not allowed by CORS'))
+    return callback(new Error(`Origin [${origin}] is not allowed by CORS. Allowed origins: ${allowedOrigins.join(', ')}`))
   }
 })
