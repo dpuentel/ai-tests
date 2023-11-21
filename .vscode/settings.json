@@ -1,6 +1,7 @@
 {
 	"conventionalCommits.scopes": [
 		"root",
-		"client"
+		"client",
+		"presentation"
 	]
 }
