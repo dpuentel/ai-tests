@@ -2,6 +2,7 @@
 	"conventionalCommits.scopes": [
 		"root",
 		"client",
-		"presentation"
+		"presentation",
+		"server"
 	]
 }

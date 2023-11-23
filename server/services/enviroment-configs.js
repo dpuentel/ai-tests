@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { DEFAULT_SERVER_HOST, DEFAULT_SERVER_PORT, DEFAULT_SERVER_PROTOCOL } from '../constants.js'
+import { CACHE_MODELS_DIR, DEFAULT_SERVER_HOST, DEFAULT_SERVER_PORT, DEFAULT_SERVER_PROTOCOL } from '../constants.js'
 
 const getEnv = (key, defaultValue) => {
   const value = process.env[key]
@@ -37,4 +37,8 @@ export const getServerUrl = () => {
 
 export const getTextToSpeechRoute = () => {
   return `${getEnv('AI_ROUTE', '')}${getEnv('TEXT_TO_SPEECH_ROUTE', '')}`
+}
+
+export const getCacheDir = () => {
+  return `${process.cwd()}/${CACHE_MODELS_DIR}`
 }

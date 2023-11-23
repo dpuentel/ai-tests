@@ -1,5 +1,6 @@
-import { pipeline } from '@xenova/transformers'
+import { pipeline, env } from '@xenova/transformers'
 import wavefile from 'wavefile'
+import { getCacheDir } from './enviroment-configs.js'
 
 const EMBED = 'https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/speaker_embeddings.bin'
 
@@ -13,6 +14,7 @@ export const generateAudioFile = async ({
   phrase,
   speakerEmbeddings = EMBED
 }) => {
+  env.cacheDir = getCacheDir()
   const output = await synthetizer(phrase, { speaker_embeddings: speakerEmbeddings })
 
   const wav = new wavefile.WaveFile()
