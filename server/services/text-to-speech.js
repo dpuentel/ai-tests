@@ -15,6 +15,10 @@ export const generateAudioFile = async ({
   speakerEmbeddings = EMBED
 }) => {
   env.cacheDir = getCacheDir()
+  console.log('### ONNX runtime: ###')
+  console.log(env.backends.onnx)
+  console.log('### END ONNX runtime: ###')
+
   const output = await synthetizer(phrase, { speaker_embeddings: speakerEmbeddings })
 
   const wav = new wavefile.WaveFile()

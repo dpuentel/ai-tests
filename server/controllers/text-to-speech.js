@@ -10,8 +10,11 @@ export class TextToSpeechController {
       }
 
       console.log(`Generating speech for: ${text}`)
+      const start = performance.now()
 
       const audio = await generateAudioFile({ phrase: text })
+      console.log(`Generated audio in ${(performance.now() - start) / 1000} seconds`)
+
       const buffer = audio.toBuffer()
 
       const readStream = new stream.PassThrough()
@@ -21,6 +24,8 @@ export class TextToSpeechController {
       res.set('Content-Disposition', 'attachment; filename=audio.wav')
 
       readStream.pipe(res)
+      const end = performance.now()
+      console.log(`Execution duration: ${(end - start) / 1000} seconds`)
     } catch (error) {
       console.error(`Error generating speech: ${error}`)
       res.status(500).json({ error: 'Unexpected server error' })
