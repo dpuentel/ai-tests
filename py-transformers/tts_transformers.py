@@ -1,3 +1,4 @@
+import io
 from transformers import SpeechT5Processor, SpeechT5ForTextToSpeech, SpeechT5HifiGan
 from datasets import load_dataset
 import torch
@@ -51,12 +52,29 @@ def save_text_to_speech(text, speaker=None):
     # return the filename for reference
     return output_filename
 
+def get_text_to_speech(text, speaker=None):
+    # preprocess text
+    inputs = processor(text=text, return_tensors="pt").to(device)
+    if speaker is not None:
+        # load xvector containing speaker's voice characteristics from a dataset
+        speaker_embeddings = torch.tensor(embeddings_dataset[speaker]["xvector"]).unsqueeze(0).to(device)
+    else:
+        # random vector, meaning a random voice
+        speaker_embeddings = torch.randn((1, 512)).to(device)
+    # generate speech with the models
+    speech = model.generate_speech(inputs["input_ids"], speaker_embeddings, vocoder=vocoder)
+    # return a StringIO object
+    buffer = io.BytesIO()
+    sf.write(buffer, speech.cpu().numpy(), samplerate=16000, format='mp3')
+    return buffer.getvalue()
+
+
 
 # a challenging text with all speakers
-text = """Transformers provides APIs and tools to easily download and train
-state-of-the-art pretrained models. Using pretrained models can reduce your compute costs,
-carbon footprint, and save you the time and resources required to train a model from scratch."""
+#text = """Transformers provides APIs and tools to easily download and train
+#state-of-the-art pretrained models. Using pretrained models can reduce your compute costs,
+#carbon footprint, and save you the time and resources required to train a model from scratch."""
 
-for speaker_name, speaker in speakers.items():
-    output_filename = save_text_to_speech(text, speaker)
-    print(f"Saved {output_filename}")
+#for speaker_name, speaker in speakers.items():
+#    output_filename = save_text_to_speech(text, speaker)
+#    print(f"Saved {output_filename}")
