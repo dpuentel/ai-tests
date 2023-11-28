@@ -33,3 +33,8 @@ Inicia la api flask
 ```bash
 python3 -m flask run
 ```
+
+Para servir en todas las interfaces de red
+```bash
+python3 -m flask run --host=0.0.0.0
+```
