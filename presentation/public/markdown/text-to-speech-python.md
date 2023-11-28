@@ -2,17 +2,23 @@
 
 Crear entorno virtual
 ```bash
-python3 -m venv .env
+python3 -m venv .venv
 ```
 
 Activar entorno virtual
 ```bash
-source .env/bin/activate
+source .venv/bin/activate
 ```
 
 Instalar dependencias
 ```bash
 pip3 install soundfile transformers datasets sentencepiece torch
+```
+
+o
+
+```bash
+pip3 install -r requirements.txt
 ```
 
 Crear fichero `tts_transformers.py` con el siguiente contenido
