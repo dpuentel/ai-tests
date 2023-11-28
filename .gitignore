@@ -4,3 +4,4 @@
 cache/*
 !cache/.gitkeep
 **/.venv
+**/__pycache__
