@@ -3,3 +3,4 @@
 .env
 cache/*
 !cache/.gitkeep
+**/.venv
