@@ -20,6 +20,14 @@ export const getServerUrl = () => {
   return `${protocol}://${host}:${port}`;
 }
 
+export const getFlaskServerUrl = () => {
+  const protocol = getEnvKey({ key: 'VITE_FLASK_PROTOCOL' });
+  const host = getEnvKey({ key: 'VITE_FLASK_HOST', });
+  const port = getEnvKey({ key: 'VITE_FLASK_PORT', });
+
+  return `${protocol}://${host}:${port}`;
+}
+
 export const getTextToSpeechRoute = () => {
   return `${AI_ROUTE}${TEXT_TO_SPEECH_ROUTE}`
 }

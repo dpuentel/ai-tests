@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 
 import './text-to-speech.css'
-import { getServerUrl, getTextToSpeechRoute } from '../../enviroment-configs'
+import { getFlaskServerUrl, getServerUrl, getTextToSpeechRoute } from '../../enviroment-configs'
 
 export default function TextToSpeechPage() {
  const [audio, setAudio] = useState<string>('')
@@ -10,12 +10,17 @@ export default function TextToSpeechPage() {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     const text = data.get('text')
+    const usePython = data.get('usePython')
 
     if (!text) {
       return
     }
 
-    const textToSpeechUrl = `${getServerUrl()}${getTextToSpeechRoute()}`
+    //const textToSpeechUrl = `${getServerUrl()}${getTextToSpeechRoute()}`
+    const textToSpeechUrl = usePython
+      ? `${getFlaskServerUrl()}${getTextToSpeechRoute()}`
+      : `${getServerUrl()}${getTextToSpeechRoute()}`
+
     console.log({ textToSpeechUrl})
 
     const response = await fetch(textToSpeechUrl, {
@@ -36,6 +41,10 @@ export default function TextToSpeechPage() {
     <>
       <h1>Text to Speech</h1>
       <form onSubmit={handleSubmit}>
+        <label>
+          <span>Use python</span>
+          <input type="checkbox" name="usePython" />
+        </label>
         <label>
           <span>Generate audio from this text:</span>
           <textarea name="text" />
