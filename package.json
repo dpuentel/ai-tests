@@ -8,6 +8,8 @@
     "dev:server": "node --watch ./server/index.js",
     "dev:client": "cd client && npm run dev",
     "dev:presentation": "cd presentation && npm run dev",
+    "dev:flask": "bash -c 'cd py-transformers && source .venv/bin/activate && python3 -m flask run --host=0.0.0.0'",
+    "dev:all": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client\" \"npm run dev:presentation\" \"npm run dev:flask\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -22,6 +24,7 @@
     "wavefile": "^11.0.0"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "standard": "^17.1.0"
   },
   "eslintConfig": {
