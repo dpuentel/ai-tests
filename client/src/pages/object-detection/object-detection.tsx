@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Pipeline, pipeline } from '@xenova/transformers'
+import { pipeline } from '@xenova/transformers'
 
 import './object-detection.css'
 import { getRandHexColor } from '../../services/colors'
@@ -108,3 +108,4 @@ async function detect (imgSrc: string): Promise<Detection[]> {
     return detection
   })
 }
+
