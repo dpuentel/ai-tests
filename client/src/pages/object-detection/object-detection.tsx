@@ -74,7 +74,7 @@ export default function ObjectDetectionPage() {
         { detections && detections.length > 0 &&
           detections.map((detection, index) => {
             return (
-              <div className='bounding-box' id={index.toString()} style={getBoxElementStyle(detection)}>
+              <div className='bounding-box' key={index} id={index.toString()} style={getBoxElementStyle(detection)}>
                 <span className='bounding-box-label' style={{backgroundColor: detection.color || 'red'}}>
                   {detection.label}
                 </span>
