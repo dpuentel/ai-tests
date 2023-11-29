@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from 'react'
-import { pipeline } from '@xenova/transformers'
+import { Pipeline, pipeline } from '@xenova/transformers'
 
 import './object-detection.css'
+import { getRandHexColor } from '../../services/colors'
 
 interface Box {
   xmax: number
@@ -19,6 +20,7 @@ interface Detection {
 export default function ObjectDetectionPage() {
   const [image, setImage] = useState<string>('')
   const [detections, setDetections] = useState<Detection[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -28,6 +30,8 @@ export default function ObjectDetectionPage() {
     if (!image) {
       return
     }
+
+    setIsLoading(true)
     setImage('')
     setDetections([])
 
@@ -40,20 +44,25 @@ export default function ObjectDetectionPage() {
       const detections = await detect(base64)
       setDetections(detections)
       setImage(base64)
+      setIsLoading(false)
+    }
+
+    reader.onerror = () => {
+      console.error('Something went wrong reading the file')
+      setIsLoading(false)
     }
 
     reader.readAsDataURL(image)
-
-
+    //setIsLoading(false)
   }
 
   const getBoxElementStyle = (detection: Detection) => {
     return {
       borderColor: detection.color,
-      left: 100 * detection.box.xmin + '%',
-      top: 100 * detection.box.ymin + '%',
-      width: 100 * (detection.box.xmax - detection.box.xmin) + '%',
-      height: 100 * (detection.box.ymax - detection.box.ymin) + '%'
+      left: `${100 * detection.box.xmin}%`,
+      top: `${100 * detection.box.ymin}%`,
+      width: `${100 * (detection.box.xmax - detection.box.xmin)}%`,
+      height: `${100 * (detection.box.ymax - detection.box.ymin)}%`
     }
   }
 
@@ -83,7 +92,9 @@ export default function ObjectDetectionPage() {
           })
         }
       </div>
-      <p id="status"></p>
+      { isLoading &&
+        <p id="status">Loading...</p>
+      }
     </>
   )
 }
@@ -91,13 +102,9 @@ export default function ObjectDetectionPage() {
 const detector = await pipeline('object-detection', 'Xenova/detr-resnet-50')
 
 async function detect (imgSrc: string): Promise<Detection[]> {
-  const detections = await detector(imgSrc, { threshold: 0.5, percentage: true})
+  const detections = await detector(imgSrc, { threshold: 0.5, percentage: true })
   return detections.map((detection: Detection) => {
     detection.color = getRandHexColor()
     return detection
   })
-}
-
-function getRandHexColor() {
-  return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0')
 }
