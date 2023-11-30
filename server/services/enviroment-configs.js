@@ -42,3 +42,7 @@ export const getTextToSpeechRoute = () => {
 export const getCacheDir = () => {
   return `${process.cwd()}/${CACHE_MODELS_DIR}`
 }
+
+export const getGithubToken = () => {
+  return getEnv('GITHUB_TOKEN')
+}
