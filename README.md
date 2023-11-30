@@ -10,6 +10,8 @@ El proyecto está dividido en 4 partes:
 * `client`: Aplicación web [React](https://es.react.dev/) para interactuar con las APIs.
 * `presentation`: Presentación para mostrar en el workshop hecha con [reveal.js](https://revealjs.com/).
 
+![Diagrama del proyecto](presentation/public/images/project-dia.png)
+
 ## 🛠️ Instalación
 
 Instalar dependencias de cada parte del proyecto:
