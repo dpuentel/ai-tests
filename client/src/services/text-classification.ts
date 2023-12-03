@@ -1,4 +1,4 @@
-import { pipeline, Pipeline } from '@xenova/transformers';
+import { pipeline, Pipeline } from '@xenova/transformers'
 
 class TextClassificationPipeline {
   private task: string
@@ -18,21 +18,21 @@ class TextClassificationPipeline {
     TextClassificationPipeline.instance = await pipeline(
       this.task,
       TextClassificationPipeline.model,
-      { progress_callback : onProgress }
-    );
+      { progress_callback: onProgress }
+    )
     return TextClassificationPipeline.instance
   }
 }
 
 export const sentimentClassifyText = async (text: string) => {
-  const model =  'Xenova/distilbert-base-uncased-finetuned-sst-2-english'
+  const model = 'Xenova/distilbert-base-uncased-finetuned-sst-2-english'
   const classifier = await new TextClassificationPipeline({ model }).getInstance()
   return await classifier(text)
 }
 
 // classify form 1 to 5
 export const rateClassifyText = async (text: string) => {
-    const model = 'Xenova/bert-base-multilingual-uncased-sentiment'
-    const classifier = await new TextClassificationPipeline({ model }).getInstance()
-    return await classifier(text)
+  const model = 'Xenova/bert-base-multilingual-uncased-sentiment'
+  const classifier = await new TextClassificationPipeline({ model }).getInstance()
+  return await classifier(text)
 }
